@@ -9,6 +9,8 @@ use Choz\RequestValidationBundle\Tests\Request\Instances\ArrayOfScalarRequest;
 use Choz\RequestValidationBundle\Tests\Request\Instances\ArrayOfStructuresRequest;
 use Choz\RequestValidationBundle\Tests\Request\Instances\StructuresRequest;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\FileBag;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Throwable;
@@ -95,12 +97,19 @@ final class BaseRequestTest extends TestCase
     {
         $requestStack = new RequestStack();
         $requestStack->push(new Request([], ['id' => 1, 'name' => 'first name']));
-        try {
-
-            $request = new StructuresRequest($requestStack);
-        } catch (Throwable $t) {
-            dd($t);
-        }
+        $request = new StructuresRequest($requestStack);
+        
         $this->assertSame(['id' => 1, 'name' => 'first name'], $request->all());
+    }
+
+    public function testBaseRequestMethods(): void
+    {
+        $requestStack = new RequestStack();
+        $requestStack->push(new Request([], ['id' => 1, 'name' => 'first name']));
+        $request = new StructuresRequest($requestStack);
+
+        $this->assertInstanceOf(InputBag::class, $request->request());
+        $this->assertInstanceOf(InputBag::class, $request->query());
+        $this->assertInstanceOf(FileBag::class, $request->files());
     }
 }
