@@ -33,6 +33,7 @@ abstract class BaseValidation
         return $this->httpRequest->query->all() + $this->httpRequest->request->all() + $this->httpRequest->files->all();
     }
 
+    /** @return array<int,\Symfony\Component\Validator\Constraint> */
     abstract public function rules(): Collection|array;
 
     final protected function validate(): bool

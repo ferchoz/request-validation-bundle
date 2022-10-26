@@ -45,6 +45,7 @@ abstract class BaseRequest extends BaseValidation
      * @throws MissingOptionsException
      * @throws InvalidOptionsException
      * @throws ConstraintDefinitionException
+     * @return array<int,\Symfony\Component\Validator\Constraint>
      */
     public function rules(): Collection|array
     {

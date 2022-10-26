@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 
 final class ChozRequestValidationExtension extends Extension
 {
+    /** @param array<string,mixed> $configs */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $container->register(RequestValidationEventListener::class)
