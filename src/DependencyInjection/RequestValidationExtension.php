@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SymfonyBundles\JsonRequestBundle\DependencyInjection;
+namespace Choz\RequestValidationBundle\DependencyInjection;
 
 use Choz\RequestValidationBundle\EventListener\RequestValidationEventListener;
 use Symfony\Component\HttpKernel\KernelEvents;
