@@ -3,7 +3,6 @@
 namespace Choz\RequestValidationBundle\Tests\Request\Instances;
 
 use Choz\RequestValidationBundle\Request\BaseRequest;
-use Choz\RequestValidationBundle\Validation\RawArrayValidation;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\Count;
@@ -12,9 +11,9 @@ use Symfony\Component\Validator\Constraints\Type;
 
 class ArrayOfStructuresRequest extends BaseRequest
 {
-    protected function getConstraints(): RawArrayValidation
+    protected function rules(): array
     {
-        return new RawArrayValidation([
+        return [
             new All(
                 [
                     new Collection([
@@ -24,6 +23,6 @@ class ArrayOfStructuresRequest extends BaseRequest
                 ]
             ),
             new Count(['min' => 2])
-        ]);
+        ];
     }
 }

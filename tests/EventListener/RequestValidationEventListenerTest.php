@@ -27,10 +27,10 @@ class RequestValidationEventListenerTest extends TestCase {
 
         $this->assertNull($exceptionEvent->getResponse());
         $listener->onKernelException($exceptionEvent);
-        $this->assertSame(Response::HTTP_BAD_REQUEST, $exceptionEvent->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_BAD_REQUEST, $exceptionEvent->getResponse()?->getStatusCode());
         $this->assertSame(
             '{"message":"The given data failed to pass validation.","errors":{"some_path":["some violation"]}}',
-            $exceptionEvent->getResponse()->getContent(),
+            $exceptionEvent->getResponse()?->getContent(),
         );
     }
 

@@ -34,7 +34,7 @@ abstract class BaseValidation
     }
 
     /** @return array<int,\Symfony\Component\Validator\Constraint> */
-    abstract public function rules(): Collection|array;
+    abstract protected function rules(): array;
 
     final protected function validate(): bool
     {
