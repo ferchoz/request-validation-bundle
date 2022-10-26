@@ -6,12 +6,12 @@ namespace Choz\RequestValidationBundle\Request;
 
 use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\InputBag;
-use Symfony\Component\Validator\Constraints\{Collection};
+use Symfony\Component\Validator\Constraints\{All, Collection, Composite};
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 use Symfony\Component\Validator\Exception\InvalidOptionsException;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
 
-class BaseRequest extends BaseValidation {
+abstract class BaseRequest extends BaseValidation {
     private const ALLOW_EXTRA_FIELDS = false;
     private const ALLOW_MISSING_FIELDS = false;
     private const EXTRA_FIELDS_MESSAGE = 'This field was not expected.';
@@ -40,9 +40,13 @@ class BaseRequest extends BaseValidation {
      * @throws InvalidOptionsException
      * @throws ConstraintDefinitionException
      */
-    public function rules(): Collection {
+    public function rules(): Composite {
+        if ($this->getConstraints() instanceof All) {
+            return $this->getConstraints();
+        }
+        
         return new Collection([
-            'fields' => $this->getConstraints(),
+            'fields' => $this->getConstraints()->getNestedConstraints(),
             'allowExtraFields' => self::ALLOW_EXTRA_FIELDS,
             'allowMissingFields' => self::ALLOW_MISSING_FIELDS,
             'extraFieldsMessage' => self::EXTRA_FIELDS_MESSAGE,
@@ -54,10 +58,6 @@ class BaseRequest extends BaseValidation {
      * @throws MissingOptionsException
      * @throws InvalidOptionsException
      * @throws ConstraintDefinitionException
-     * @return array<string, \Symfony\Component\Validator\Constraint>
      */
-    protected function getConstraints(): array {
-        return [];
-    }
-
+    abstract protected function getConstraints(): Composite;
 }
