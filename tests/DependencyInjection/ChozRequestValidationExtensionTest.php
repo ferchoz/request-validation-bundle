@@ -13,9 +13,11 @@ class ChozRequestValidationExtensionTest extends TestCase {
     public function testExtendionSuccessfully(): void {
         $extension = new ChozRequestValidationExtension();
         
+        /** @var \PHPUnit\Framework\MockObject\MockObject $container  */
         $container = $this->createMock(ContainerBuilder::class);
         $container->expects($this->once())->method('register')->willReturn(new Definition());
-
+        
+        /** @var ContainerBuilder $container  */
         $extension->load([], $container);
     }
 }
