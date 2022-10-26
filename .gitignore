@@ -1,2 +1,4 @@
 .devcontainer
 /vendor/
+/coverage/
+/.phpunit.cache/

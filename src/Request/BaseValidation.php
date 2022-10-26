@@ -7,16 +7,18 @@ namespace Choz\RequestValidationBundle\Request;
 use Choz\RequestValidationBundle\Exception\RequestValidationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Validator\Constraints\Composite;
+use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-abstract class BaseValidation {
+abstract class BaseValidation
+{
     protected Request $httpRequest;
     private ValidatorInterface $validator;
 
-    final public function __construct(RequestStack $request) {
+    final public function __construct(RequestStack $request)
+    {
         $this->httpRequest = $request->getCurrentRequest() ?? new Request();
         $this->validator = Validation::createValidator();
 
@@ -26,13 +28,15 @@ abstract class BaseValidation {
     /**
      * @return array<string, mixed>
      */
-    final public function all(): array {
+    final public function all(): array
+    {
         return $this->httpRequest->query->all() + $this->httpRequest->request->all() + $this->httpRequest->files->all();
     }
 
-    abstract public function rules(): Composite;
+    abstract public function rules(): Collection|array;
 
-    final protected function validate(): bool {
+    final protected function validate(): bool
+    {
         /** @var ConstraintViolationList $violations */
         $violations = $this->validator->validate($this->all(), $this->rules());
 
