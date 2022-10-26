@@ -2,8 +2,8 @@
 
 namespace Choz\RequestValidationBundle;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class ChozRequestValidationBundle extends AbstractBundle
+class ChozRequestValidationBundle extends Bundle
 {
 }
