@@ -7,7 +7,6 @@ namespace Choz\RequestValidationBundle\Request;
 use Choz\RequestValidationBundle\Exception\RequestValidationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;

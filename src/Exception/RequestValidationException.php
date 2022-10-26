@@ -6,7 +6,6 @@ namespace Choz\RequestValidationBundle\Exception;
 
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
-use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 
 class RequestValidationException extends \RuntimeException
@@ -28,7 +27,7 @@ class RequestValidationException extends \RuntimeException
     {
         $errors = [];
         $iterator = $this->violations->getIterator();
-        /** @var ConstraintViolation $violation */
+
         foreach ($iterator as $violation) {
             $entryErrors = (array) $this->propertyAccessor->getValue($errors, $violation->getPropertyPath());
             $entryErrors[] = $violation->getMessage();
