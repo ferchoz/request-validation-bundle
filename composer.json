@@ -1,0 +1,20 @@
+{
+    "name": "choz/request-validation-bundle",
+    "description": "a bundle that's inspired in Laravel request validation",
+    "type": "symfony-bundle",
+    "autoload": {
+        "psr-4": {
+            "Choz\\RequestValidationBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Choz\\RequestValidationBundle\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "symfony/framework-bundle": "^6.1",
+        "symfony/validator": "^6.1",
+        "symfony/property-access": "^6.1"
+    }
+}
