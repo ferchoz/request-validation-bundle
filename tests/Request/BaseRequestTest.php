@@ -47,7 +47,7 @@ final class BaseRequestTest extends TestCase
     public function testArrayStructureError(): void
     {
         $requestStack = new RequestStack();
-        $requestStack->push(new Request([], [['id' => 1, 'name' => 'first name'], ['id' => 1]]));
+        $requestStack->push(new Request([], [['id' => 1, 'name' => 'lonely first name'], ['id' => 1]]));
 
         $this->expectException(RequestValidationException::class);
 
@@ -67,9 +67,14 @@ final class BaseRequestTest extends TestCase
     public function testArrayStructureSuccess(): void
     {
         $requestStack = new RequestStack();
-        $requestStack->push(new Request([], [['id' => 1, 'name' => 'first name'], ['id' => 2, 'name' => 'second name'], ['id' => 3, 'name' => 'third name']]));
+        $requestData = [
+            ['id' => 1, 'name' => 'first name'],
+            ['id' => 2, 'name' => 'second name'],
+            ['id' => 3, 'name' => 'third name'],
+        ];
+        $requestStack->push(new Request([], $requestData));
         $request = new ArrayOfStructuresRequest($requestStack);
-        $this->assertSame([['id' => 1, 'name' => 'first name'], ['id' => 2, 'name' => 'second name'], ['id' => 3, 'name' => 'third name']], $request->all());
+        $this->assertSame($requestData, $request->all());
     }
 
     public function testStructureError(): void
@@ -95,16 +100,17 @@ final class BaseRequestTest extends TestCase
     public function testStructureSuccess(): void
     {
         $requestStack = new RequestStack();
-        $requestStack->push(new Request([], ['id' => 1, 'name' => 'first name']));
+        $requstData = ['id' => 1, 'name' => 'some name'];
+        $requestStack->push(new Request([], $requstData));
         $request = new StructuresRequest($requestStack);
 
-        $this->assertSame(['id' => 1, 'name' => 'first name'], $request->all());
+        $this->assertSame($requstData, $request->all());
     }
 
     public function testBaseRequestMethods(): void
     {
         $requestStack = new RequestStack();
-        $requestStack->push(new Request([], ['id' => 1, 'name' => 'first name']));
+        $requestStack->push(new Request([], ['id' => 1, 'name' => 'lonely second name']));
         $request = new StructuresRequest($requestStack);
 
         $this->assertInstanceOf(InputBag::class, $request->request());
