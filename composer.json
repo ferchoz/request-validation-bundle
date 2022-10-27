@@ -1,7 +1,7 @@
 {
     "name": "choz/request-validation-bundle",
     "description": "a bundle that's inspired in Laravel request validation",
-    "keywords": ["request", "symfony", "bundle", "validation"],
+    "keywords": ["request", "symfony", "bundle", "validation", "validate", "validator", "api"],
     "homepage": "https://github.com/ferchoz/request-validation-bundle",
     "license": "MIT",
     "type": "symfony-bundle",
