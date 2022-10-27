@@ -23,7 +23,8 @@ final class BaseRequestTest extends TestCase
 
         $this->expectException(RequestValidationException::class);
 
-        new ArrayOfScalarRequest($requestStack);
+        $request = new ArrayOfScalarRequest($requestStack);
+        $this->assertInstanceOf(ArrayOfScalarRequest::class, $request);
     }
 
     public function testArrayEmptyError(): void
@@ -33,7 +34,8 @@ final class BaseRequestTest extends TestCase
 
         $this->expectException(RequestValidationException::class);
 
-        new ArrayOfScalarRequest($requestStack);
+        $request = new ArrayOfScalarRequest($requestStack);
+        $this->assertInstanceOf(ArrayOfScalarRequest::class, $request);
     }
 
     public function testArrayScalarSuccess(): void
@@ -51,7 +53,8 @@ final class BaseRequestTest extends TestCase
 
         $this->expectException(RequestValidationException::class);
 
-        new ArrayOfStructuresRequest($requestStack);
+        $request = new ArrayOfStructuresRequest($requestStack);
+        $this->assertInstanceOf(ArrayOfStructuresRequest::class, $request);
     }
 
     public function testArrayStructureEmptyError(): void
@@ -61,7 +64,8 @@ final class BaseRequestTest extends TestCase
 
         $this->expectException(RequestValidationException::class);
 
-        new ArrayOfStructuresRequest($requestStack);
+        $request = new ArrayOfStructuresRequest($requestStack);
+        $this->assertInstanceOf(ArrayOfStructuresRequest::class, $request);
     }
 
     public function testArrayStructureSuccess(): void
@@ -84,7 +88,8 @@ final class BaseRequestTest extends TestCase
 
         $this->expectException(RequestValidationException::class);
 
-        new StructuresRequest($requestStack);
+        $request = new StructuresRequest($requestStack);
+        $this->assertInstanceOf(StructuresRequest::class, $request);
     }
 
     public function testStructureEmptyError(): void
@@ -94,7 +99,8 @@ final class BaseRequestTest extends TestCase
 
         $this->expectException(RequestValidationException::class);
 
-        new StructuresRequest($requestStack);
+        $request = new StructuresRequest($requestStack);
+        $this->assertInstanceOf(StructuresRequest::class, $request);
     }
 
     public function testStructureSuccess(): void
