@@ -142,7 +142,6 @@ Will get a JSON Response:
 
 ## Advanced (recommended) usage:
 
-
 Request:
 ```php
 <?php
@@ -199,4 +198,16 @@ class TagCreateController extends AbstractController
         return new JsonResponse(['id' => $id, 'name' => $name], status: JsonResponse::HTTP_CREATED);
     }
 }
+```
+## Custom event listener:
+
+Override event listener:
+```yaml
+# config/services.yml
+services:
+    # ... other services
+    choz_request_validation_listener:
+        class: App\EventListener\CustomRequestValidationEventListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
 ```
