@@ -15,8 +15,10 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 
-class RequestValidationEventListenerTest extends TestCase {
-    public function testHandleValidationRequestSuccessfully(): void {
+class RequestValidationEventListenerTest extends TestCase
+{
+    public function testHandleValidationRequestSuccessfully(): void
+    {
         /** @var HttpKernelInterface */
         $httpKernel = $this->createMock(HttpKernelInterface::class);
 
@@ -34,7 +36,8 @@ class RequestValidationEventListenerTest extends TestCase {
         );
     }
 
-    public function testHandleNoException(): void {
+    public function testHandleNoException(): void
+    {
         /** @var HttpKernelInterface */
         $httpKernel = $this->createMock(HttpKernelInterface::class);
         $throws = new Exception('random exception');

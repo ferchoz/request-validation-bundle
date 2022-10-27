@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Choz\RequestValidationBundle\Tests\Request\Instances;
 
 use Choz\RequestValidationBundle\Request\BaseRequest;
@@ -15,7 +17,7 @@ class StructuresRequest extends BaseRequest
             new Collection([
                 'id' => [new Required(), new Type('int')],
                 'name' => [new Required(), new Type('string')],
-            ])
+            ]),
         ];
     }
 }

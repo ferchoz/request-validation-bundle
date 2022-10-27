@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Throwable;
 
 final class BaseRequestTest extends TestCase
 {
@@ -98,7 +97,7 @@ final class BaseRequestTest extends TestCase
         $requestStack = new RequestStack();
         $requestStack->push(new Request([], ['id' => 1, 'name' => 'first name']));
         $request = new StructuresRequest($requestStack);
-        
+
         $this->assertSame(['id' => 1, 'name' => 'first name'], $request->all());
     }
 

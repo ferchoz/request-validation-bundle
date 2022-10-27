@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Choz\RequestValidationBundle\DependencyInjection;
 
 use Choz\RequestValidationBundle\EventListener\RequestValidationEventListener;
-use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 final class ChozRequestValidationExtension extends Extension
 {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Choz\RequestValidationBundle\Tests\Request\Instances;
 
 use Choz\RequestValidationBundle\Request\BaseRequest;
