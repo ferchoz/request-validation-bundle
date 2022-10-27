@@ -1,6 +1,9 @@
 {
     "name": "choz/request-validation-bundle",
     "description": "a bundle that's inspired in Laravel request validation",
+    "keywords": ["request", "symfony", "bundle", "validation"],
+    "homepage": "https://github.com/ferchoz/request-validation-bundle",
+    "license": "MIT",
     "type": "symfony-bundle",
     "autoload": {
         "psr-4": {
@@ -24,7 +27,7 @@
     "scripts": {
         "format": "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=tools/php-cs-fixer/.php-cs-fixer.dist.php --verbose --show-progress=dots",
         "stan": "vendor/bin/phpstan analyse src tests --level=max",
-        "test": "vendor/phpunit/phpunit/phpunit tests",
-        "test-coverage": "XDEBUG_MODE=coverage vendor/phpunit/phpunit/phpunit tests --coverage-html=coverage"
+        "test": "vendor/bin/phpunit tests",
+        "test-coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit tests --coverage-html=coverage"
     }
 }
