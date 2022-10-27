@@ -88,7 +88,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TagCreateController extends AbstractController {
+class TagCreateController extends AbstractController
+{
     #[Route('/tags', methods: ['POST'])]
     public function __invoke(TagCreateRequest $request): JsonResponse {
         $id = $request->request()->getInt('id');
@@ -141,7 +142,6 @@ Will get a JSON Response:
 
 ## Advanced (recommended) usage:
 
-
 Request:
 ```php
 <?php
@@ -188,7 +188,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TagCreateController extends AbstractController {
+class TagCreateController extends AbstractController
+{
     #[Route('/tags', methods: ['POST'])]
     public function __invoke(TagCreateRequest $request): JsonResponse {
         $id = $request->getId();
@@ -197,4 +198,24 @@ class TagCreateController extends AbstractController {
         return new JsonResponse(['id' => $id, 'name' => $name], status: JsonResponse::HTTP_CREATED);
     }
 }
+```
+
+## Custom response code:
+Override response code:
+```yaml
+# config/packages/choz_request_validation.yaml
+choz_request_validation:
+    response_code: !php/const Symfony\Component\HttpFoundation\Response::HTTP_UNPROCESSABLE_ENTITY # 422
+```
+
+## Custom event listener:
+Override event listener:
+```yaml
+# config/services.yaml
+services:
+    # ... other services
+    choz_request_validation_listener:
+        class: App\EventListener\CustomRequestValidationEventListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
 ```
