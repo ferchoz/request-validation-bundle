@@ -97,3 +97,18 @@ class TagCreateController extends AbstractController {
     }
 }
 ```
+
+Response with errors (code 400): 
+```json
+{
+    "message": "The given data failed to pass validation.",
+    "errors": {
+        "id": [
+            "This field is missing."
+        ],
+        "name": [
+            "This field is missing."
+        ]
+    }
+}
+```
