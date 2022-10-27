@@ -199,11 +199,19 @@ class TagCreateController extends AbstractController
     }
 }
 ```
-## Custom event listener:
 
+## Custom response code:
+Override response code:
+```yaml
+# config/packages/choz_request_validation.yaml
+choz_request_validation:
+    response_code: !php/const Symfony\Component\HttpFoundation\Response::HTTP_UNPROCESSABLE_ENTITY # 422
+```
+
+## Custom event listener:
 Override event listener:
 ```yaml
-# config/services.yml
+# config/services.yaml
 services:
     # ... other services
     choz_request_validation_listener:
