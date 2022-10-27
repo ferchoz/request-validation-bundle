@@ -1,3 +1,10 @@
+# API Request Validation Bundle
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ferchoz_request-validation-bundle&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ferchoz_request-validation-bundle)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ferchoz_request-validation-bundle&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ferchoz_request-validation-bundle)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=ferchoz_request-validation-bundle&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=ferchoz_request-validation-bundle)
+
+This is a small library that helps you validate incoming requests.
+
 Installation
 ============
 
@@ -38,4 +45,55 @@ return [
     // ...
     Choz\RequestValidationBundle\ChozRequestValidationBundle::class => ['all' => true],
 ];
+```
+
+## Basic Usage
+
+Request:
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Request;
+
+use Choz\RequestValidationBundle\Request\BaseRequest;
+use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Validator\Constraints\Required;
+use Symfony\Component\Validator\Constraints\Type;
+
+class TagCreateRequest extends BaseRequest
+{
+    protected function rules(): array
+    {
+        return [
+            new Collection([
+                'id' => [new Required(), new Type('int')],
+                'name' => [new Required(), new Type('string')],
+            ]),
+        ];
+    }
+}
+```
+
+Controller:
+```php
+<?php 
+
+namespace App\Controller;
+
+use App\Request\TagCreateRequest;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Annotation\Route;
+
+class TagCreateController extends AbstractController {
+    #[Route('/tags', methods: ['POST'])]
+    public function __invoke(TagCreateRequest $request): JsonResponse {
+        $id = $request->request()->getInt('id');
+        $name = $request->request()->getAlpha('name');
+        // use your values
+        return new JsonResponse(['id' => $id, 'name' => $name], status: JsonResponse::HTTP_CREATED);
+    }
+}
 ```
