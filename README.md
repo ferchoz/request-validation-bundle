@@ -88,7 +88,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TagCreateController extends AbstractController {
+class TagCreateController extends AbstractController
+{
     #[Route('/tags', methods: ['POST'])]
     public function __invoke(TagCreateRequest $request): JsonResponse {
         $id = $request->request()->getInt('id');
@@ -188,7 +189,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TagCreateController extends AbstractController {
+class TagCreateController extends AbstractController
+{
     #[Route('/tags', methods: ['POST'])]
     public function __invoke(TagCreateRequest $request): JsonResponse {
         $id = $request->getId();
