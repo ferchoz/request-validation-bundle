@@ -11,6 +11,8 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 
 class RequestValidationEventListener
 {
+    public function __construct(private int $responseCode = Response::HTTP_BAD_REQUEST) {}
+
     public function onKernelException(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
@@ -19,7 +21,7 @@ class RequestValidationEventListener
         if ($exception instanceof RequestValidationException) {
             $response = new JsonResponse(
                 ['message' => $exception->getMessage(), 'errors' => $exception->getResponseErrors()],
-                Response::HTTP_BAD_REQUEST,
+                $this->responseCode,
             );
         }
 

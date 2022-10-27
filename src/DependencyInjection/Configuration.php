@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Choz\RequestValidationBundle\DependencyInjection;
 
-use Choz\RequestValidationBundle\EventListener\RequestValidationEventListener;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class Configuration implements ConfigurationInterface
 {
@@ -19,8 +19,8 @@ class Configuration implements ConfigurationInterface
 
         $nodeDefinition
             ->children()
-            ->variableNode('custom_exception_event_listener')
-            ->defaultValue(RequestValidationEventListener::class)
+            ->integerNode('response_code')
+            ->defaultValue(Response::HTTP_BAD_REQUEST)
             ->end()
         ;
 
