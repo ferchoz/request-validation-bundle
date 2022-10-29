@@ -11,8 +11,11 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 
 class RequestValidationEventListener
 {
-    public function __construct(private int $responseCode = Response::HTTP_BAD_REQUEST)
+    private int $responseCode;
+
+    public function __construct(int $responseCode = Response::HTTP_BAD_REQUEST)
     {
+        $this->responseCode = $responseCode;
     }
 
     public function onKernelException(ExceptionEvent $event): void
