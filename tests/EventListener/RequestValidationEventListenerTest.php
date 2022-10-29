@@ -19,7 +19,7 @@ class RequestValidationEventListenerTest extends TestCase
 {
     public function testHandleValidationRequestSuccessfully(): void
     {
-        /** @var HttpKernelInterface */
+        /** @var HttpKernelInterface $httpKernel */
         $httpKernel = $this->createMock(HttpKernelInterface::class);
 
         $someConstraintViolation = new ConstraintViolation('some violation', null, [], '', '[some_path]', '');
@@ -29,10 +29,14 @@ class RequestValidationEventListenerTest extends TestCase
 
         $this->assertNull($exceptionEvent->getResponse());
         $listener->onKernelException($exceptionEvent);
-        $this->assertSame(Response::HTTP_BAD_REQUEST, $exceptionEvent->getResponse()?->getStatusCode());
+
+        /** @var \Symfony\Component\HttpFoundation\Response $response */
+        $response = $exceptionEvent->getResponse();
+
+        $this->assertSame(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
         $this->assertSame(
             '{"message":"The given data failed to pass validation.","errors":{"some_path":["some violation"]}}',
-            $exceptionEvent->getResponse()?->getContent(),
+            $response->getContent(),
         );
     }
 

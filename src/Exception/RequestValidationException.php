@@ -11,13 +11,15 @@ use Symfony\Component\Validator\ConstraintViolationList;
 class RequestValidationException extends \RuntimeException
 {
     private PropertyAccessor $propertyAccessor;
+    private ConstraintViolationList $violations;
 
-    public function __construct(private ConstraintViolationList $violations)
+    public function __construct(ConstraintViolationList $violations)
     {
         $message = 'The given data failed to pass validation.';
         parent::__construct($message);
 
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
+        $this->violations = $violations;
     }
 
     /**
