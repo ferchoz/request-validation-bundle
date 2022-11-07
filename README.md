@@ -92,8 +92,8 @@ class TagCreateController extends AbstractController
 {
     #[Route('/tags', methods: ['POST'])]
     public function __invoke(TagCreateRequest $request): JsonResponse {
-        $id = $request->request()->getInt('id');
-        $name = $request->request()->getAlpha('name');
+        $id = $request->getInteger('id');
+        $name = $request->getString('name');
         // use your values
         return new JsonResponse(['id' => $id, 'name' => $name], status: JsonResponse::HTTP_CREATED);
     }
@@ -168,11 +168,13 @@ class TagCreateRequest extends BaseRequest
     }
 
     public function getId(): int {
-        return $this->request()->getInt('id');
+        // return $this->request()->getInt('id'); this works too.
+        return $this->getInteger('id');
     }
 
     public function getName(): string {
-        return $this->request()->getAlpha('name');
+        // return $this->request()->getAlpha('name'); this works too.
+        return $this->getString('name');
     }
 }
 ```
