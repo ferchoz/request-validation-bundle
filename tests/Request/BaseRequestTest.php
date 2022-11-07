@@ -7,6 +7,7 @@ namespace Choz\RequestValidationBundle\Tests\Request;
 use Choz\RequestValidationBundle\Exception\RequestValidationException;
 use Choz\RequestValidationBundle\Tests\Request\Instances\ArrayOfScalarRequest;
 use Choz\RequestValidationBundle\Tests\Request\Instances\ArrayOfStructuresRequest;
+use Choz\RequestValidationBundle\Tests\Request\Instances\BaseRequestValueImplementationRequest;
 use Choz\RequestValidationBundle\Tests\Request\Instances\StructuresRequest;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\FileBag;
@@ -122,5 +123,127 @@ final class BaseRequestTest extends TestCase
         $this->assertInstanceOf(InputBag::class, $request->request());
         $this->assertInstanceOf(InputBag::class, $request->query());
         $this->assertInstanceOf(FileBag::class, $request->files());
+    }
+
+    public function testFloatOrNull(): void
+    {
+        $requestStack = new RequestStack();
+        $requestStack->push(new Request(['first_param' => 12.3], ['second_param' => ['sub_param' => '43.1']]));
+
+        $request = new BaseRequestValueImplementationRequest($requestStack);
+
+        $this->assertEquals(12.3, $request->getFloatOrNull('first_param'));
+        $this->assertEquals(43.1, $request->getFloatOrNull('second_param.sub_param'));
+        $this->assertNull($request->getFloatOrNull('second_param.null'));
+    }
+
+    public function testIntegerOrNull(): void
+    {
+        $requestStack = new RequestStack();
+        $requestStack->push(new Request(['first_param' => 12], ['second_param' => ['sub_param' => '43']]));
+
+        $request = new BaseRequestValueImplementationRequest($requestStack);
+
+        $this->assertEquals(12, $request->getIntegerOrNull('first_param'));
+        $this->assertEquals(43, $request->getIntegerOrNull('second_param.sub_param'));
+        $this->assertNull($request->getIntegerOrNull('second_param.null'));
+    }
+
+    public function testStringOrNull(): void
+    {
+        $requestStack = new RequestStack();
+        $requestStack->push(new Request(['first_param' => 'param1'], ['second_param' => ['sub_param' => 'param2']]));
+
+        $request = new BaseRequestValueImplementationRequest($requestStack);
+
+        $this->assertEquals('param1', $request->getStringOrNull('first_param'));
+        $this->assertEquals('param2', $request->getStringOrNull('second_param.sub_param'));
+        $this->assertNull($request->getStringOrNull('second_param.null'));
+    }
+
+    public function testBooleanOrNull(): void
+    {
+        $requestStack = new RequestStack();
+        $requestStack->push(new Request(['first_param' => true], ['second_param' => ['sub_param' => 'false']]));
+
+        $request = new BaseRequestValueImplementationRequest($requestStack);
+
+        $this->assertTrue($request->getBooleanOrNull('first_param'));
+        $this->assertFalse($request->getBooleanOrNull('second_param.sub_param'));
+        $this->assertNull($request->getBooleanOrNull('second_param.null'));
+    }
+
+    public function testArrayOrNull(): void
+    {
+        $requestStack = new RequestStack();
+        $requestStack->push(
+            new Request(['first_param' => ['one', 'two']], ['second_param' => ['sub_param' => ['three', 'four']]]),
+        );
+        $request = new BaseRequestValueImplementationRequest($requestStack);
+
+        $this->assertEquals(['one', 'two'], $request->getArrayOrNull('first_param'));
+        $this->assertEquals(['three', 'four'], $request->getArrayOrNull('second_param.sub_param'));
+        $this->assertNull($request->getBooleanOrNull('second_param.null'));
+    }
+
+    public function testFloat(): void
+    {
+        $requestStack = new RequestStack();
+        $requestStack->push(new Request(['first_param' => 12.3], ['second_param' => ['sub_param' => '43.1']]));
+
+        $request = new BaseRequestValueImplementationRequest($requestStack);
+
+        $this->assertEquals(12.3, $request->getFloat('first_param'));
+        $this->assertEquals(43.1, $request->getFloat('second_param.sub_param'));
+        $this->assertEquals(0.0, $request->getFloat('second_param.null'));
+    }
+
+    public function testInteger(): void
+    {
+        $requestStack = new RequestStack();
+        $requestStack->push(new Request(['first_param' => 12], ['second_param' => ['sub_param' => '43']]));
+
+        $request = new BaseRequestValueImplementationRequest($requestStack);
+
+        $this->assertEquals(12, $request->getInteger('first_param'));
+        $this->assertEquals(43, $request->getInteger('second_param.sub_param'));
+        $this->assertEquals(0, $request->getInteger('second_param.null'));
+    }
+
+    public function testString(): void
+    {
+        $requestStack = new RequestStack();
+        $requestStack->push(new Request(['first_param' => 'param1'], ['second_param' => ['sub_param' => 'param2']]));
+
+        $request = new BaseRequestValueImplementationRequest($requestStack);
+
+        $this->assertEquals('param1', $request->getString('first_param'));
+        $this->assertEquals('param2', $request->getString('second_param.sub_param'));
+        $this->assertEquals('', $request->getString('second_param.null'));
+    }
+
+    public function testBoolean(): void
+    {
+        $requestStack = new RequestStack();
+        $requestStack->push(new Request(['first_param' => true], ['second_param' => ['sub_param' => 'false']]));
+
+        $request = new BaseRequestValueImplementationRequest($requestStack);
+
+        $this->assertTrue($request->getBoolean('first_param'));
+        $this->assertFalse($request->getBoolean('second_param.sub_param'));
+        $this->assertFalse($request->getBoolean('second_param.null'));
+    }
+
+    public function testArray(): void
+    {
+        $requestStack = new RequestStack();
+        $requestStack->push(
+            new Request(['first_param' => ['one', 'two']], ['second_param' => ['sub_param' => ['three', 'four']]]),
+        );
+        $request = new BaseRequestValueImplementationRequest($requestStack);
+
+        $this->assertEquals(['one', 'two'], $request->getArray('first_param'));
+        $this->assertEquals(['three', 'four'], $request->getArray('second_param.sub_param'));
+        $this->assertEquals([], $request->getArray('second_param.null'));
     }
 }
