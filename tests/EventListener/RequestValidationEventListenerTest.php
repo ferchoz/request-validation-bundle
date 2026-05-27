@@ -19,7 +19,6 @@ class RequestValidationEventListenerTest extends TestCase
 {
     public function testHandleValidationRequestSuccessfully(): void
     {
-        /** @var HttpKernelInterface $httpKernel */
         $httpKernel = $this->createMock(HttpKernelInterface::class);
 
         $someConstraintViolation = new ConstraintViolation('some violation', null, [], '', '[some_path]', '');
@@ -42,7 +41,6 @@ class RequestValidationEventListenerTest extends TestCase
 
     public function testHandleNoException(): void
     {
-        /** @var HttpKernelInterface */
         $httpKernel = $this->createMock(HttpKernelInterface::class);
         $throws = new Exception('random exception');
         $exceptionEvent = new ExceptionEvent($httpKernel, new Request(), HttpKernelInterface::MAIN_REQUEST, $throws);

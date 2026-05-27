@@ -37,6 +37,7 @@ class RequestValidationException extends \RuntimeException
             $this->propertyAccessor->setValue($errors, $violation->getPropertyPath(), $entryErrors);
         }
 
+        /** @var array<mixed> $errors */
         return $errors;
     }
 }

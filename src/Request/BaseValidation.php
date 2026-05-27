@@ -29,7 +29,9 @@ abstract class BaseValidation
      */
     final public function all(): array
     {
-        return $this->httpRequest->query->all() + $this->httpRequest->request->all() + $this->httpRequest->files->all();
+        /** @var array<string, mixed> $merged */
+        $merged = $this->httpRequest->query->all() + $this->httpRequest->request->all() + $this->httpRequest->files->all();
+        return $merged;
     }
 
     /** @return array<int,\Symfony\Component\Validator\Constraint> */

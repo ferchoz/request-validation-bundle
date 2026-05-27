@@ -33,35 +33,35 @@ abstract class BaseRequest extends BaseValidation
 
     public function getFloat(string $path): float
     {
-        return floatval($this->getAll()->get($path));
+        return (float) $this->getAll()->get($path);
     }
 
     public function getFloatOrNull(string $path): ?float
     {
         $value = $this->getAll()->get($path);
-        return null === $value ? null : floatval($value);
+        return null === $value ? null : (float) $value;
     }
 
     public function getInteger(string $path): int
     {
-        return intval($this->getAll()->get($path));
+        return (int) $this->getAll()->get($path);
     }
 
     public function getIntegerOrNull(string $path): ?int
     {
         $value = $this->getAll()->get($path);
-        return null === $value ? null : intval($value);
+        return null === $value ? null : (int) $value;
     }
 
     public function getString(string $path): string
     {
-        return strval($this->getAll()->get($path));
+        return (string) $this->getAll()->get($path);
     }
 
     public function getStringOrNull(string $path): ?string
     {
         $value = $this->getAll()->get($path);
-        return null === $value ? null : strval($value);
+        return null === $value ? null : (string) $value;
     }
 
     public function getBoolean(string $path): bool
